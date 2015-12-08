@@ -39,5 +39,5 @@ func main() {
 	var TCPAdress net.TCPAddr
 	TCPAdress.IP = ipadress4
 	TCPAdress.Port = 502
-	fmt.Println(TCPAdress)
+	conn, err := net.DialTCP("tcp", *TCPAdress, *TCPAdress)
 }
