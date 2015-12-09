@@ -6,7 +6,6 @@ import (
 	"os"
 	"strconv"
 	//"strings"
-	"bufio"
 )
 
 func main() {
@@ -54,8 +53,8 @@ func main() {
 	obuf[6] = byte(slaveid)
 	obuf[7] = 3
 	obuf[8] = byte(startadress >> 8)
-	obuf[9] = byte(startadress)
+	obuf[9] = byte(startadress & 0xff)
 	obuf[10] = byte(num_of_registers >> 8)
-	obuf[11] = byte(num_of_registers)
+	obuf[11] = byte(num_of_registers & 0xff)
 	conn.Write(obuf)
 }
