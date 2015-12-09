@@ -6,6 +6,7 @@ import (
 	"os"
 	"strconv"
 	//"strings"
+	"bufio"
 )
 
 func main() {
@@ -39,5 +40,22 @@ func main() {
 	var TCPAdress net.TCPAddr
 	TCPAdress.IP = ipadress4
 	TCPAdress.Port = 502
-	conn, err := net.DialTCP("tcp", *TCPAdress, *TCPAdress)
+	conn, err := net.DialTCP("tcp", &TCPAdress, &TCPAdress)
+	if err != nil {
+		fmt.Println(err)
+	}
+	var obuf []byte
+	obuf[0] = 0
+	obuf[1] = 0
+	obuf[2] = 0
+	obuf[3] = 0
+	obuf[4] = 0
+	obuf[5] = 6 // Length of telegram
+	obuf[6] = byte(slaveid)
+	obuf[7] = 3
+	obuf[8] = byte(startadress >> 8)
+	obuf[9] = byte(startadress)
+	obuf[10] = byte(num_of_registers >> 8)
+	obuf[11] = byte(num_of_registers)
+	conn.Write(obuf)
 }
